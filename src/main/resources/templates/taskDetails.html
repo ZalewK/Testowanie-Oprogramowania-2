@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Task Details</title>
+</head>
+<body>
+
+<h1>Task Details</h1>
+
+<div th:if="${task != null}">
+    <p><strong>Name:</strong> <span th:text="${task.name}"></span></p>
+    <p><strong>Details:</strong> <span th:text="${task.details}"></span></p>
+    <a th:href="@{/}" class="btn btn-primary">Back to List</a>
+</div>
+<div th:if="${task == null}">
+    <p>Task not found.</p>
+    <a th:href="@{/}" class="btn btn-primary">Back to List</a>
+</div>
+
+</body>
+</html>
