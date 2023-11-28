@@ -126,4 +126,8 @@ public class TaskController {
         return tasks;
     }
 
+    public Task getTaskById(long id) {
+        return tasks.stream().filter(t -> t.getId() == id).findFirst().orElse(null);
+    }
+
 }
