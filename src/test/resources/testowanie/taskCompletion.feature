@@ -2,12 +2,10 @@ Feature: Wykonywanie zadań
 
   Scenario: Wykonanie niewykonanego zadania
     Given Na liście jest niewykonane zadanie
-    When Wciskamy przycisk Complete
+    When Wciskamy przycisk Change status
     Then Zadanie pokazuje się jako wykonane
-    And Przycisk Complete zmienia się w Undo
 
   Scenario: Cofnięcie wykonania zadania
     Given Na liście jest wykonane zadanie
-    When Wciskamy przycisk Undo
+    When Wciskamy przycisk Change status
     Then Zadanie pokazuje się jako niewykonane
-    And Przycisk Undo zmienia się w Complete
