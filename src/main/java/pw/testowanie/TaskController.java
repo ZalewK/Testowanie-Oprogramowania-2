@@ -122,4 +122,12 @@ public class TaskController {
         this.tasks.add(task);
     }
 
+    public List<Task> getTasks(){
+        return tasks;
+    }
+
+    public Task getTaskById(long id) {
+        return tasks.stream().filter(t -> t.getId() == id).findFirst().orElse(null);
+    }
+
 }
