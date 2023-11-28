@@ -13,18 +13,13 @@ public class TaskCompletionStepDefinitions {
         // Write code here that turns the phrase above into concrete actions
         throw new io.cucumber.java.PendingException();
     }
-    @When("Wciskamy przycisk Undo")
-    public void wciskamy_przycisk_undo() {
+    @When("Wciskamy przycisk Change status")
+    public void wciskamy_przycisk_change_status_kiedy_wykonane() {
         // Write code here that turns the phrase above into concrete actions
         throw new io.cucumber.java.PendingException();
     }
     @Then("Zadanie pokazuje się jako niewykonane")
     public void zadanie_pokazuje_się_jako_niewykonane() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
-    }
-    @Then("Przycisk Undo zmienia się w Complete")
-    public void przycisk_undo_zmienia_się_w_complete() {
         // Write code here that turns the phrase above into concrete actions
         throw new io.cucumber.java.PendingException();
     }
@@ -36,18 +31,13 @@ public class TaskCompletionStepDefinitions {
         // Write code here that turns the phrase above into concrete actions
         throw new io.cucumber.java.PendingException();
     }
-    @When("Wciskamy przycisk Complete")
-    public void wciskamy_przycisk_complete() {
+    @When("Wciskamy przycisk Change status")
+    public void wciskamy_przycisk_change_status_kiedy_niewykonane() {
         // Write code here that turns the phrase above into concrete actions
         throw new io.cucumber.java.PendingException();
     }
     @Then("Zadanie pokazuje się jako wykonane")
     public void zadanie_pokazuje_się_jako_wykonane() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
-    }
-    @Then("Przycisk Complete zmienia się w Undo")
-    public void przycisk_complete_zmienia_się_w_undo() {
         // Write code here that turns the phrase above into concrete actions
         throw new io.cucumber.java.PendingException();
     }
