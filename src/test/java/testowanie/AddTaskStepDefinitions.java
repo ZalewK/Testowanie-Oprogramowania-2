@@ -1,13 +1,9 @@
 package testowanie;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import io.cucumber.java.en.*;
 
 import java.util.List;
-
-import javax.swing.JOptionPane;
-
-import io.cucumber.java.en.*;
 import pw.testowanie.TaskController;
 import pw.testowanie.Task;
 import pw.testowanie.Priority;
@@ -18,124 +14,174 @@ public class AddTaskStepDefinitions {
 
     private TaskController taskController = new TaskController();
     private String taskName;
+    private String taskDetails;
+    private String assignedUser;
+    private Priority assignedPriority;
 
     @Given("Użytkownik uruchamia aplikację_1")
     public void użytkownik_uruchamia_aplikację_1() {
-        System.out.println("Aplikacja uruchomiona");
+        System.out.println("Aplikacja uruchomiona_1");
     }
     @When("Wprowadza poprawną nazwę zadania")
     public void wprowadza_poprawną_nazwę_zadania() {
-        taskName = "Nowe Zadanie";
+        taskName = "Nowe Zadanie 1";
+        taskDetails = "";
+        assignedUser = "";
+        assignedPriority = Priority.LOW; 
     }
-    @When("Wciska przycisk Add_1")
+    @And("Wciska przycisk Add_1")
     public void wciska_przycisk_add_1() {
-        taskController.addTaskDirectly(new Task(taskName, "Szczegóły zadania", "Użytkownik", Priority.MEDIUM));
+        taskController.addTaskDirectly(new Task(taskName, taskDetails, assignedUser, assignedPriority));
     }
     @Then("Nowe zadanie z samą nazwą zostaje dodane na listę zadań")
     public void nowe_zadanie_z_samą_nazwą_zostaje_dodane_na_listę_zadań() {
             List<Task> tasks = taskController.getTasks();
-            JOptionPane.showMessageDialog(null, "lol");
-            assertTrue( tasks.stream().anyMatch(task -> task.getName().equals(taskName)), "Oczekiwano, że zadanie zostanie dodane na listę zadań, ale nie zostało.");
+            Task addedTask = tasks.get(0);
+            assertEquals(1, tasks.size());
+            assertEquals("Nowe Zadanie 1", addedTask.getName());
+            assertEquals("", addedTask.getDetails());
+            assertEquals("", addedTask.getUser());
+            assertEquals(Priority.LOW, addedTask.getPriority());
     }
 
     // 2
 
     @Given("Użytkownik uruchamia aplikację_2")
     public void użytkownik_uruchamia_aplikację_2() {
-        System.out.println("test");
+        System.out.println("Aplikacja uruchomiona_2");
     }
     @When("Wprowadza poprawną nazwę zadania oraz jego szczegóły")
     public void wprowadza_poprawną_nazwę_zadania_oraz_jego_szczegóły() {
-        System.out.println("test");
+        taskName = "Nowe Zadanie 2";
+        taskDetails = "Szczegóły zadania 2";
+        assignedUser = "";
+        assignedPriority = Priority.LOW; 
     }
-    @When("Wciska przycisk Add_2")
+    @And("Wciska przycisk Add_2")
     public void wciska_przycisk_add_2() {
-        System.out.println("test");
+        taskController.addTaskDirectly(new Task(taskName, taskDetails, assignedUser, assignedPriority));
     }
     @Then("Nowe zadanie z nazwą oraz szczegółami zostaje dodane na listę zadań")
     public void nowe_zadanie_z_nazwą_oraz_szczegółami_zostaje_dodane_na_listę_zadań() {
-        System.out.println("test");
-        assertTrue(true);
+            List<Task> tasks = taskController.getTasks();
+            Task addedTask = tasks.get(0);
+            assertEquals(1, tasks.size());
+            assertEquals("Nowe Zadanie 2", addedTask.getName());
+            assertEquals("Szczegóły zadania 2", addedTask.getDetails());
+            assertEquals("", addedTask.getUser());
+            assertEquals(Priority.LOW, addedTask.getPriority());
     }
 
     // 3
 
     @Given("Użytkownik uruchamia aplikację_3")
     public void użytkownik_uruchamia_aplikację_3() {
-        System.out.println("test");
+        System.out.println("Aplikacja uruchomiona_3");
     }
     @When("Wprowadza poprawną nazwę zadania oraz użytkownika")
     public void wprowadza_poprawną_nazwę_zadania_oraz_użytkownika() {
-        System.out.println("test");
+        taskName = "Nowe Zadanie 3";
+        taskDetails = "";
+        assignedUser = "Nowy User 3";
+        assignedPriority = Priority.LOW; 
     }
-    @When("Wciska przycisk Add_3")
+    @And("Wciska przycisk Add_3")
     public void wciska_przycisk_add_3() {
-        System.out.println("test");
+        taskController.addTaskDirectly(new Task(taskName, taskDetails, assignedUser, assignedPriority));
     }
     @Then("Nowe zadanie z nazwą oraz przypisanym użytkownikiem zostaje dodane na listę zadań")
     public void nowe_zadanie_z_nazwą_oraz_przypisanym_użytkownikiem_zostaje_dodane_na_listę_zadań() {
-        System.out.println("test");
-        assertTrue(true);
+        List<Task> tasks = taskController.getTasks();
+            Task addedTask = tasks.get(0);
+            assertEquals(1, tasks.size());
+            assertEquals("Nowe Zadanie 3", addedTask.getName());
+            assertEquals("", addedTask.getDetails());
+            assertEquals("Nowy User 3", addedTask.getUser());
+            assertEquals(Priority.LOW, addedTask.getPriority());
     }
 
     // 4
 
     @Given("Użytkownik uruchamia aplikację_4")
     public void użytkownik_uruchamia_aplikację_4() {
-        System.out.println("test");
+        System.out.println("Aplikacja uruchomiona_4");
     }
     @When("Wprowadza poprawną nazwę zadania, użytkownika oraz priorytet")
     public void wprowadza_poprawną_nazwę_zadania_użytkownika_oraz_priorytet() {
-        System.out.println("test");
+        taskName = "Nowe Zadanie 4";
+        taskDetails = "";
+        assignedUser = "Nowy User 4";
+        assignedPriority = Priority.MEDIUM; 
     }
-    @When("Wciska przycisk Add_4")
+    @And("Wciska przycisk Add_4")
     public void wciska_przycisk_add_4() {
-        System.out.println("test");
+        taskController.addTaskDirectly(new Task(taskName, taskDetails, assignedUser, assignedPriority));
     }
     @Then("Nowe zadanie z nazwą, przypisanym użytkownikiem oraz priorytetem zostaje dodane na listę zadań")
     public void nowe_zadanie_z_nazwą_przypisanym_użytkownikiem_oraz_priorytetem_zostaje_dodane_na_listę_zadań() {
-        System.out.println("test");
-        assertTrue(true);
+        List<Task> tasks = taskController.getTasks();
+            Task addedTask = tasks.get(0);
+            assertEquals(1, tasks.size());
+            assertEquals("Nowe Zadanie 4", addedTask.getName());
+            assertEquals("", addedTask.getDetails());
+            assertEquals("Nowy User 4", addedTask.getUser());
+            assertEquals(Priority.MEDIUM, addedTask.getPriority());
     }
 
     // 5
 
     @Given("Użytkownik uruchamia aplikację_5")
     public void użytkownik_uruchamia_aplikację_5() {
-        System.out.println("test");
+        System.out.println("Aplikacja uruchomiona_5");
     }
     @When("Wprowadza poprawną nazwę zadania, jego szczegóły oraz użytkownika")
     public void wprowadza_poprawną_nazwę_zadania_jego_szczegóły_oraz_użytkownika() {
-        System.out.println("test");
+        taskName = "Nowe Zadanie 5";
+        taskDetails = "Szczegóły zadania 5";
+        assignedUser = "Nowy User 5";
+        assignedPriority = Priority.LOW; 
     }
-    @When("Wciska przycisk Add_5")
+    @And("Wciska przycisk Add_5")
     public void wciska_przycisk_add_5() {
-        System.out.println("test");
+        taskController.addTaskDirectly(new Task(taskName, taskDetails, assignedUser, assignedPriority));
     }
     @Then("Nowe zadanie z nazwą, szczegółami oraz przypisanym użytkownikiem zostaje dodane na listę zadań")
     public void nowe_zadanie_z_nazwą_szczegółami_oraz_przypisanym_użytkownikiem_zostaje_dodane_na_listę_zadań() {
-        System.out.println("test");
-        assertTrue(true);
+        List<Task> tasks = taskController.getTasks();
+            Task addedTask = tasks.get(0);
+            assertEquals(1, tasks.size());
+            assertEquals("Nowe Zadanie 5", addedTask.getName());
+            assertEquals("Szczegóły zadania 5", addedTask.getDetails());
+            assertEquals("Nowy User 5", addedTask.getUser());
+            assertEquals(Priority.LOW, addedTask.getPriority());
     }
 
     // 6
 
     @Given("Użytkownik uruchamia aplikację_6")
     public void użytkownik_uruchamia_aplikację_6() {
-        System.out.println("test");
+        System.out.println("Aplikacja uruchomiona_6");
     }
     @When("Wprowadza poprawną nazwę zadania, jego szczegóły, użytkownika oraz priorytet")
     public void wprowadza_poprawną_nazwę_zadania_jego_szczegóły_użytkownika_oraz_priorytet() {
-        System.out.println("test");
+        taskName = "Nowe Zadanie 6";
+        taskDetails = "Szczegóły zadania 6";
+        assignedUser = "Nowy User 6";
+        assignedPriority = Priority.HIGH; 
     }
-    @When("Wciska przycisk Add_6")
+    @And("Wciska przycisk Add_6")
     public void wciska_przycisk_add_6() {
-        System.out.println("test");
+        taskController.addTaskDirectly(new Task(taskName, taskDetails, assignedUser, assignedPriority));
     }
     @Then("Nowe zadanie z nazwą, szczegółami, przypisanym użytkownikiem oraz priorytetem zostaje dodane na listę zadań")
     public void nowe_zadanie_z_nazwą_szczegółami_przypisanym_użytkownikiem_oraz_priorytetem_zostaje_dodane_na_listę_zadań() {
-        System.out.println("test");
-        assertTrue(true);
+        List<Task> tasks = taskController.getTasks();
+            Task addedTask = tasks.get(0);
+            assertEquals(1, tasks.size());
+            assertEquals("Nowe Zadanie 6", addedTask.getName());
+            assertEquals("Szczegóły zadania 6", addedTask.getDetails());
+            assertEquals("Nowy User 6", addedTask.getUser());
+            assertEquals(Priority.HIGH, addedTask.getPriority());
     }
 
 }

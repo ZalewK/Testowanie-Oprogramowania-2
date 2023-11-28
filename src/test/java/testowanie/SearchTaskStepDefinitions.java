@@ -2,9 +2,7 @@ package testowanie;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
+import io.cucumber.java.en.*;
 
 public class SearchTaskStepDefinitions {
     
@@ -18,7 +16,7 @@ public class SearchTaskStepDefinitions {
     public void wprowadza_nazwę_zadania() {
         System.out.println("test");
     }
-    @When("Wciska przycisk Szukaj po nazwie")
+    @And("Wciska przycisk Szukaj po nazwie")
     public void wciska_przycisk_szukaj_po_nazwie() {
         System.out.println("test");
     }
@@ -38,7 +36,7 @@ public class SearchTaskStepDefinitions {
     public void wprowadza_nazwę_użytkownika() {
         System.out.println("test");
     }
-    @When("Wciska przycisk Szukaj po użytkowniku")
+    @And("Wciska przycisk Szukaj po użytkowniku")
     public void wciska_przycisk_szukaj_po_użytkowniku() {
         System.out.println("test");
     }
