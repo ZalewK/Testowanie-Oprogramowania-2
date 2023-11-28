@@ -12,7 +12,7 @@ public class AddTaskStepDefinitions {
 
     // 1
 
-    private TaskController taskController = new TaskController();
+    private TaskController taskController;
     private String taskName;
     private String taskDetails;
     private String assignedUser;
@@ -20,7 +20,7 @@ public class AddTaskStepDefinitions {
 
     @Given("Użytkownik uruchamia aplikację_1")
     public void użytkownik_uruchamia_aplikację_1() {
-        System.out.println("Aplikacja uruchomiona_1");
+        taskController = new TaskController();
     }
     @When("Wprowadza poprawną nazwę zadania")
     public void wprowadza_poprawną_nazwę_zadania() {
@@ -48,7 +48,7 @@ public class AddTaskStepDefinitions {
 
     @Given("Użytkownik uruchamia aplikację_2")
     public void użytkownik_uruchamia_aplikację_2() {
-        System.out.println("Aplikacja uruchomiona_2");
+        taskController = new TaskController();
     }
     @When("Wprowadza poprawną nazwę zadania oraz jego szczegóły")
     public void wprowadza_poprawną_nazwę_zadania_oraz_jego_szczegóły() {
@@ -76,7 +76,7 @@ public class AddTaskStepDefinitions {
 
     @Given("Użytkownik uruchamia aplikację_3")
     public void użytkownik_uruchamia_aplikację_3() {
-        System.out.println("Aplikacja uruchomiona_3");
+        taskController = new TaskController();
     }
     @When("Wprowadza poprawną nazwę zadania oraz użytkownika")
     public void wprowadza_poprawną_nazwę_zadania_oraz_użytkownika() {
@@ -104,7 +104,7 @@ public class AddTaskStepDefinitions {
 
     @Given("Użytkownik uruchamia aplikację_4")
     public void użytkownik_uruchamia_aplikację_4() {
-        System.out.println("Aplikacja uruchomiona_4");
+        taskController = new TaskController();
     }
     @When("Wprowadza poprawną nazwę zadania, użytkownika oraz priorytet")
     public void wprowadza_poprawną_nazwę_zadania_użytkownika_oraz_priorytet() {
@@ -132,7 +132,7 @@ public class AddTaskStepDefinitions {
 
     @Given("Użytkownik uruchamia aplikację_5")
     public void użytkownik_uruchamia_aplikację_5() {
-        System.out.println("Aplikacja uruchomiona_5");
+        taskController = new TaskController();
     }
     @When("Wprowadza poprawną nazwę zadania, jego szczegóły oraz użytkownika")
     public void wprowadza_poprawną_nazwę_zadania_jego_szczegóły_oraz_użytkownika() {
@@ -160,7 +160,7 @@ public class AddTaskStepDefinitions {
 
     @Given("Użytkownik uruchamia aplikację_6")
     public void użytkownik_uruchamia_aplikację_6() {
-        System.out.println("Aplikacja uruchomiona_6");
+        taskController = new TaskController();
     }
     @When("Wprowadza poprawną nazwę zadania, jego szczegóły, użytkownika oraz priorytet")
     public void wprowadza_poprawną_nazwę_zadania_jego_szczegóły_użytkownika_oraz_priorytet() {
