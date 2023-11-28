@@ -122,4 +122,8 @@ public class TaskController {
         this.tasks.add(task);
     }
 
+    public List<Task> getTasks(){
+        return tasks;
+    }
+
 }
