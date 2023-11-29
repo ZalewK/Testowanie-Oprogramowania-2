@@ -85,6 +85,34 @@ public class TaskController {
         return "index";
     }
 
+    @GetMapping("/filter")
+    public String filterTasks(@RequestParam(name = "filterBy", required = false) String status,
+                              Model model) {
+        List<Task> filteredTasks = tasks;
+
+        if ("completed".equals(status)) {
+            filteredTasks = filterCompletedTasks(filteredTasks);
+        } else if ("inProgress".equals(status)) {
+            filteredTasks = filterInProgressTasks(filteredTasks);
+        }
+
+        model.addAttribute("tasks", filteredTasks);
+
+        return "index";
+    }
+
+    private List<Task> filterCompletedTasks(List<Task> tasks) {
+        return tasks.stream()
+                .filter(task -> task.getStatus() == Status.COMPLETED)
+                .collect(Collectors.toList());
+    }
+
+    private List<Task> filterInProgressTasks(List<Task> tasks) {
+        return tasks.stream()
+                .filter(task -> task.getStatus() == Status.IN_PROGRESS)
+                .collect(Collectors.toList());
+    }
+
     private List<Task> filterTasksByUserName(List<Task> tasks, String userName) {
         return tasks.stream()
                 .filter(task -> task.getUser().toLowerCase().contains(userName.toLowerCase()))
@@ -105,7 +133,7 @@ public class TaskController {
             tasks.sort(Comparator.comparing(task -> task.getUser().toLowerCase()));
         } else if ("priority".equals(sortBy)) {
             tasks.sort(Comparator.comparing(Task::getPriority));
-        } else if("status".equals(sortBy)){
+        } else if ("status".equals(sortBy)) {
             tasks.sort(Comparator.comparing(Task::getStatus));
         }
     }
@@ -124,7 +152,7 @@ public class TaskController {
         this.tasks.add(task);
     }
 
-    public List<Task> getTasks(){
+    public List<Task> getTasks() {
         return tasks;
     }
 

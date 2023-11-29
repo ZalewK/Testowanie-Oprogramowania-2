@@ -2,67 +2,190 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>ToDo List</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.css">
+    <title>To Do</title>
+    <style>
+        body {
+            text-align: center;
+        }
+
+        fieldset {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-evenly;
+        }
+
+        .search-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        label {
+            display: block;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .sort-buttons-div {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        select#priority {
+            width: 100%;
+        }
+
+        .add-button{
+            width: 200px;
+            color: white;
+            background-color: #2d1e80;
+            border: #2d1e80;
+        }
+
+        .search-button{
+            width: 200px;
+            color: white;
+            background-color: #001247;
+            border: #001247;
+        }
+
+        .sort-button {
+            width: 125px;
+            color: white;
+            background-color: #002466;
+            border: #002466;
+        }
+
+        .filter-button {
+            width: 125px;
+            color: white;
+            background-color: #0c3591;
+            border: #0c3591;
+        }
+
+        .status-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .change-button{
+            color: white;
+            background-color: #9d4edd;
+            border: #9d4edd;
+        }
+
+        .delete-button {
+            color: white;
+            background-color: #5a189a;
+            border: #5a189a;
+        }
+
+        .details-button {
+            color: white;
+            background-color: #c77dff;
+            border: #c77dff;
+        }
+    </style>
 </head>
 <body>
 
-<h1>ToDo List</h1>
+<h1>To Do</h1>
 
-<div style="display: flex; gap: 50px;">
+<div class="status-container">
     <p>Total: <span th:text="${totalTasks}"></span></p>
     <p>Completed: <span th:text="${completedTasks}"></span></p>
-    <p>In-Progress: <span th:text="${inProgressTasks}"></span></p>
+    <p>In Progress: <span th:text="${inProgressTasks}"></span></p>
 </div>
 
-<form action="/addTask" method="post">
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="name" required>
+<fieldset>
+    <legend>Add Task</legend>
+    <form action="/addTask" method="post">
+        <div class="grid-container">
+            <div>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div>
+                <label for="details">Details:</label>
+                <input type="text" id="details" name="details">
+            </div>
+            <div>
+                <label for="user">User:</label>
+                <input type="text" id="user" name="user">
+            </div>
+            <div>
+                <label for="priority">Priority:</label>
+                <select id="priority" name="priority" required>
+                    <option value="LOW">Low</option>
+                    <option value="MEDIUM">Medium</option>
+                    <option value="HIGH">High</option>
+                </select>
+            </div>
+        </div>
 
-    <label for="details">Details:</label>
-    <input type="text" id="details" name="details">
-
-    <label for="user">User:</label>
-    <input type="text" id="user" name="user">
-
-    <label for="priority">Priority:</label>
-    <select id="priority" name="priority" required>
-        <option value="LOW">Low</option>
-        <option value="MEDIUM">Medium</option>
-        <option value="HIGH">High</option>
-    </select>
-
-    <button type="submit">Add</button>
-</form>
-
-<form action="/search" method="get">
-    <div><label>Search by:</label></div>
-    <label for="userName">User:</label>
-    <input type="text" id="userName" name="userName">
-
-    <label for="taskName">Name:</label>
-    <input type="text" id="taskName" name="taskName">
-
-    <button type="submit">Search</button>
-</form>
-
-<div class="sort-options">
-    <label>Sort by:</label>
-    <form th:action="@{/tasks}" method="get" style="display: inline;">
-        <button type="submit" name="sortBy" value="name">Name</button>
+        <button type="submit" class="add-button">Add</button>
     </form>
-    <form th:action="@{/tasks}" method="get" style="display: inline;">
-        <button type="submit" name="sortBy" value="user">User</button>
-    </form>
-    <form th:action="@{/tasks}" method="get" style="display: inline;">
-        <button type="submit" name="sortBy" value="priority">Priority</button>
-    </form>
-    <form th:action="@{/tasks}" method="get" style="display: inline;">
-        <button type="submit" name="sortBy" value="status">Status</button>
-    </form>
-</div>
+</fieldset>
 
+<fieldset>
+    <legend>Search</legend>
+    <form action="/search" method="get">
+        <div class="search-container">
+            <div>
+                <label for="userName">User:</label>
+                <input type="text" id="userName" name="userName">
+            </div>
+            <div>
+                <label for="taskName">Name:</label>
+                <input type="text" id="taskName" name="taskName">
+            </div>
+        </div>
 
-<table border="1">
+        <button type="submit" class="search-button">Search</button>
+    </form>
+</fieldset>
+
+<fieldset>
+    <legend>Sort by:</legend>
+    <div class="sort-buttons-div">
+        <form th:action="@{/tasks}" method="get" style="display: inline;">
+            <button type="submit" name="sortBy" value="name" class="sort-button">Name</button>
+        </form>
+        <form th:action="@{/tasks}" method="get" style="display: inline;">
+            <button type="submit" name="sortBy" value="user" class="sort-button">User</button>
+        </form>
+        <form th:action="@{/tasks}" method="get" style="display: inline;">
+            <button type="submit" name="sortBy" value="priority" class="sort-button">Priority</button>
+        </form>
+        <form th:action="@{/tasks}" method="get" style="display: inline;">
+            <button type="submit" name="sortBy" value="status" class="sort-button">Status</button>
+        </form>
+    </div>
+</fieldset>
+
+<fieldset>
+    <legend>Filter by:</legend>
+    <div class="sort-buttons-div">
+        <form th:action="@{/filter}" method="get" style="display: inline;">
+            <button type="submit" name="filterBy" value="completed" class="filter-button">Completed</button>
+        </form>
+        <form th:action="@{/filter}" method="get" style="display: inline;">
+            <button type="submit" name="filterBy" value="inProgress" class="filter-button">In Progress</button>
+        </form>
+        <form th:action="@{/filter}" method="get" style="display: inline;">
+            <button type="submit" class="filter-button">None</button>
+        </form>
+    </div>
+</fieldset>
+
+<table>
     <thead>
     <tr>
         <th>Name</th>
@@ -80,13 +203,14 @@
         <td th:text="${task.status}"></td>
         <td>
             <form th:action="@{/deleteTask/{id}(id=${task.id})}" method="get" style="display: inline;">
-                <button type="submit">Delete</button>
-            </form>
-            <form th:action="@{/taskDetails/{id}(id=${task.id},details=${task.details})}" method="get" style="display: inline;">
-                <button type="submit">Details</button>
+                <button type="submit" class="delete-button">Delete</button>
             </form>
             <form th:action="@{/toggleTaskStatus/{id}(id=${task.id})}" method="post" style="display: inline;">
-                <button type="submit" th:text="'Change status'"></button>
+                <button type="submit" class="change-button">Change Status</button>
+            </form>
+            <form th:action="@{/taskDetails/{id}(id=${task.id},details=${task.details})}" method="get"
+                  style="display: inline;">
+                <button type="submit" class="details-button">Details</button>
             </form>
         </td>
     </tr>
