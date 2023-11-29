@@ -61,13 +61,14 @@ public class RemoveTaskStepDefinitions {
         List<Task> tasksAfterDeletion = taskController.getTasks();
         numOfTasksAfterDeletion = tasksAfterDeletion.size();
 
+        @SuppressWarnings("unchecked")
         List<Task> filteredTasks = (List<Task>) model.getAttribute("tasks");
-        boolean allMatch = filteredTasks.stream().anyMatch(task -> task.getName().contains(taskName));
+        boolean anyMatch = filteredTasks.stream().anyMatch(task -> task.getName().contains(taskName));
 
 
         assertEquals(numOfTasksBeforeDeletion - 1, numOfTasksAfterDeletion);
 
-        assertFalse(allMatch, "All tasks should have names containing the search term");
+        assertFalse(anyMatch, "All tasks should have names containing the search term");
         assertTrue(filteredTasks.size() == 0, "There should be only one task with the given user name");
 
 
