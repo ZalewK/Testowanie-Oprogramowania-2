@@ -68,8 +68,8 @@ public class RemoveTaskStepDefinitions {
 
         assertEquals(numOfTasksBeforeDeletion - 1, numOfTasksAfterDeletion);
 
-        assertFalse(anyMatch, "All tasks should have names containing the search term");
-        assertTrue(filteredTasks.size() == 0, "There should be only one task with the given user name");
+        assertFalse(anyMatch);
+        assertTrue(filteredTasks.size() == 0);
 
 
     }

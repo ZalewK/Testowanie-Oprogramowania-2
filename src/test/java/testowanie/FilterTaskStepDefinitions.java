@@ -1,6 +1,7 @@
 package testowanie;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import io.cucumber.java.en.*;
 
@@ -20,6 +21,8 @@ public class FilterTaskStepDefinitions {
 
     private TaskController taskController;
     String viewName;
+    String viewName1;
+    String viewName2;
     ExtendedModelMap model;
 
     @Given("Na liście są nieukończone zadania_f")
@@ -44,16 +47,23 @@ public class FilterTaskStepDefinitions {
     public void zaznacza_opcję_filtruj_po_nieukończonych() {
 
         taskController.sort("status");
+
+        Model model = new ExtendedModelMap();
+        String viewName = taskController.filterTasks("inProgress", model);
+
+        this.model = (ExtendedModelMap) model;
+        this.viewName = viewName;
     }
     @Then("Wyświetlone są tylko nieukończone zadania")
     public void wyświetlone_są_tylko_nieukończone_zadania() {
 
-        List<Task> allTasks = taskController.getTasks();
-        Task addedTask1 = allTasks.remove(0);
-        Task addedTask2 = allTasks.remove(0);
+        @SuppressWarnings("unchecked")
+        List<Task> filteredTasks = (List<Task>) model.getAttribute("tasks");
+        boolean allMatch = filteredTasks.stream()
+        .allMatch(task -> task.getStatus().equals(Status.IN_PROGRESS));
 
-        assertEquals(Status.IN_PROGRESS, addedTask1.getStatus());
-        assertEquals(Status.IN_PROGRESS, addedTask2.getStatus());
+        assertTrue(allMatch);
+        assertTrue(filteredTasks.size() == 2);
     }
 
     // 2
@@ -80,16 +90,23 @@ public class FilterTaskStepDefinitions {
     public void zaznacza_opcję_filtruj_po_ukończonych() {
 
         taskController.sort("status");
+
+        Model model = new ExtendedModelMap();
+        String viewName = taskController.filterTasks("completed", model);
+
+        this.model = (ExtendedModelMap) model;
+        this.viewName = viewName;
     }
     @Then("Wyświetlone są tylko ukończone zadania")
     public void wyświetlone_są_tylko_ukończone_zadania() {
 
-        List<Task> allTasks = taskController.getTasks();
-        Task addedTask1 = allTasks.remove(allTasks.size()-1);
-        Task addedTask2 = allTasks.remove(allTasks.size()-1);
+        @SuppressWarnings("unchecked")
+        List<Task> filteredTasks = (List<Task>) model.getAttribute("tasks");
+        boolean allMatch = filteredTasks.stream()
+        .allMatch(task -> task.getStatus().equals(Status.COMPLETED));
 
-        assertEquals(Status.COMPLETED, addedTask1.getStatus());
-        assertEquals(Status.COMPLETED, addedTask2.getStatus());
+        assertTrue(allMatch);
+        assertTrue(filteredTasks.size() == 2);
     }
 
     // 3
@@ -115,42 +132,20 @@ public class FilterTaskStepDefinitions {
             task4.setStatus(Status.COMPLETED);
             taskController.addTaskDirectly(task4);
         }
+
+        Model model = new ExtendedModelMap();
+        String viewName = taskController.filterTasks("", model);
+
+        this.model = (ExtendedModelMap) model;
+        this.viewName = viewName;
     }
     @Then("Wszystkie zadania są wyświetlone")
     public void wszystkie_zadania_są_wyświetlone() {
 
-        List<Task> allTasks = taskController.getTasks();
+        @SuppressWarnings("unchecked")
+        List<Task> filteredTasks = (List<Task>) model.getAttribute("tasks");
 
-        Task addedTask1 = allTasks.remove(0);
-        Task addedTask2 = allTasks.remove(0);
-        Task addedTask3 = allTasks.remove(0);
-        Task addedTask4 = allTasks.remove(0);
-
-        assertEquals("Task Name 1", addedTask1.getName());
-        assertEquals("Details 1", addedTask1.getDetails());
-        assertEquals("User 1", addedTask1.getUser());
-        assertEquals(Priority.HIGH, addedTask1.getPriority());
-        assertEquals(Status.IN_PROGRESS, addedTask1.getStatus());
-
-        assertEquals("Task Name 2", addedTask2.getName());
-        assertEquals("Details 2", addedTask2.getDetails());
-        assertEquals("User 2", addedTask2.getUser());
-        assertEquals(Priority.LOW, addedTask2.getPriority());
-        assertEquals(Status.COMPLETED, addedTask2.getStatus());
-
-        assertEquals("Task Name 3", addedTask3.getName());
-        assertEquals("Details 3", addedTask3.getDetails());
-        assertEquals("User 3", addedTask3.getUser());
-        assertEquals(Priority.MEDIUM, addedTask3.getPriority());
-        assertEquals(Status.IN_PROGRESS, addedTask3.getStatus());
-
-        assertEquals("Task Name 4", addedTask4.getName());
-        assertEquals("Details 4", addedTask4.getDetails());
-        assertEquals("User 4", addedTask4.getUser());
-        assertEquals(Priority.MEDIUM, addedTask4.getPriority());
-        assertEquals(Status.COMPLETED, addedTask4.getStatus());
-
-
+        assertTrue(filteredTasks.size() == 4);
     }
     
 }
