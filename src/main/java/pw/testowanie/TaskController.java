@@ -105,6 +105,8 @@ public class TaskController {
             tasks.sort(Comparator.comparing(task -> task.getUser().toLowerCase()));
         } else if ("priority".equals(sortBy)) {
             tasks.sort(Comparator.comparing(Task::getPriority));
+        } else if("status".equals(sortBy)){
+            tasks.sort(Comparator.comparing(Task::getStatus));
         }
     }
 
