@@ -67,6 +67,12 @@ public class TaskController {
         return "redirect:/";
     }
 
+    @GetMapping("/clearTasksForTesting")
+    public String clearTasksForTesting() {
+        tasks.clear();
+        return "redirect:/";
+    }
+
     @GetMapping("/search")
     public String searchTasks(@RequestParam(required = false) String userName,
                               @RequestParam(required = false) String taskName,
