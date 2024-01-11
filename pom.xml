@@ -81,7 +81,6 @@
             <artifactId>selenium-java</artifactId>
             <version>4.16.1</version>
         </dependency>
-
     </dependencies>
 
     <build>
