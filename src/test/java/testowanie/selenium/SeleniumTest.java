@@ -10,21 +10,27 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.server.LocalServerPort;
+import pw.testowanie.TestowanieApplication;
 
 import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
+@SpringBootTest(classes = TestowanieApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class SeleniumTest {
 
     WebDriver driver;
-    private final String host = "http://localhost:8080";
+
+    @LocalServerPort
+    private int port;
+    private final String host = "http://localhost:";
 
     @BeforeEach
     public void setUp() {
         driver = new ChromeDriver();
-        driver.get(host);
         clearTasksForTesting();
     }
 
@@ -39,6 +45,7 @@ public class SeleniumTest {
     @Test
     public void testAddTask() {
         // given
+        driver.get(host + port);
         String taskName = "task";
 
         //when
@@ -53,6 +60,7 @@ public class SeleniumTest {
     @Test
     public void testChangeTaskStatus() {
         // given
+        driver.get(host + port);
         addTask("task", "", "", "HIGH");
         WebElement beforeUpdateTaskStatusElement = driver.findElement(By.xpath("//tbody/tr/td[4]"));
         String beforeUpdateTaskStatusElementText = beforeUpdateTaskStatusElement.getText();
@@ -72,6 +80,7 @@ public class SeleniumTest {
     @Test
     public void testDeleteTask() {
         // given
+        driver.get(host + port);
         addTask("programming", "", "", "HIGH");
 
         // when
@@ -89,6 +98,7 @@ public class SeleniumTest {
     @Test
     public void testSortTasksByName() {
         // given
+        driver.get(host + port);
         WebElement addButton = driver.findElement(By.className("add-button"));
         WebElement nameInput = driver.findElement(By.id("name"));
         nameInput.sendKeys("Cleaning");
@@ -115,6 +125,7 @@ public class SeleniumTest {
     @Test
     public void testSortTasksByUser() {
         // given
+        driver.get(host + port);
         addTask("Cleaning", "", "Adam", "MEDIUM");
         addTask("Gardening", "", "Eve", "MEDIUM");
 
@@ -132,6 +143,7 @@ public class SeleniumTest {
     @Test
     public void testSortTasksByPriority() {
         // given
+        driver.get(host + port);
         addTask("Task1", "", "", "HIGH");
         addTask("Task2", "", "", "MEDIUM");
         addTask("Task3", "", "", "LOW");
@@ -153,6 +165,7 @@ public class SeleniumTest {
     @Test
     public void testSortTasksByStatus() {
         // given
+        driver.get(host + port);
         addTask("test", "", "", "HIGH");
         addTask("test", "", "", "HIGH");
         addTask("test", "", "", "HIGH");
@@ -177,6 +190,7 @@ public class SeleniumTest {
     @Test
     public void testSearchByUserName() {
         // given
+        driver.get(host + port);
         addTask("Drawing", "", "John Doe", "HIGH");
         addTask("Playing", "", "Jane Doe", "MEDIUM");
 
@@ -196,6 +210,7 @@ public class SeleniumTest {
     @Test
     public void testSearchByTaskName() {
         // given
+        driver.get(host + port);
         addTask("Clearing", "", "John Doe", "HIGH");
         addTask("Cloning", "", "Jane Doe", "MEDIUM");
 
@@ -214,6 +229,7 @@ public class SeleniumTest {
     @Test
     public void testRedirectToDetailsPage() {
         // given
+        driver.get(host + port);
         addTask("TaskToDetail", "veryimportantdetail", "John Doe", "MEDIUM");
 
         // when
@@ -251,6 +267,6 @@ public class SeleniumTest {
     }
 
     private void clearTasksForTesting() {
-        driver.get(host + "/clearTasksForTesting");
+        driver.get(host + port + "/clearTasksForTesting");
     }
 }
